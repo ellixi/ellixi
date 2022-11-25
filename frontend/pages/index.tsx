@@ -22,27 +22,27 @@ export default function Home() {
       <>
       <div className='flex flex-col items-center w-full mt-24'>
         <div className='text-2xl'>
-          Select Available Games
+          Available Games
         </div>
-        <div className='w-full max-w-lg mt-8 '>
+        <div className='w-full max-w-lg mt-4 '>
           <Link href="/game/dino">
-            <div className='relative mt-8 cursor-pointer'>
-              <div className='relative w-full h-40 overflow-hidden text-black bg-red-800 rounded-lg'>
+            <div className='relative mt-8 overflow-hidden cursor-pointer group'>
+              <div className='relative w-full h-40 overflow-hidden text-black border border-black rounded-lg group-hover:border-yellow-600'>
                 <Image src={'/static/assets/dinogame.jpeg'} fill alt='game1' className='object-cover' />
               </div>
-              <div className='absolute bottom-0 left-0 p-3 bg-black rounded-b-none text-md text-mono opacity-80 rounded-r-xl'>
+              <div className='absolute bottom-0 left-0 p-3 bg-black rounded-bl-lg group-hover:bg-yellow-600 text-md text-mono opacity-80 rounded-tr-xl'>
                 Dino Game
               </div>
             </div>
           </Link>
 
           <Link href="/game/dino">
-            <div className='relative mt-8 cursor-pointer'>
-              <div className='relative w-full h-40 overflow-hidden text-black bg-red-800 rounded-lg'>
+            <div className='relative mt-8 overflow-hidden cursor-pointer group'>
+              <div className='relative w-full h-40 overflow-hidden text-black border border-black rounded-lg group-hover:border-yellow-600'>
                 <Image src={'/static/assets/dinogame.jpeg'} fill alt='game1' className='object-cover' />
               </div>
-              <div className='absolute bottom-0 left-0 p-3 bg-black rounded-b-none text-md text-mono opacity-80 rounded-r-xl'>
-                Game 2
+              <div className='absolute bottom-0 left-0 p-3 bg-black rounded-bl-lg group-hover:bg-yellow-600 text-md text-mono opacity-80 rounded-tr-xl'>
+                Dino Game2
               </div>
             </div>
           </Link>
