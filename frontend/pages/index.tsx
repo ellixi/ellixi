@@ -31,12 +31,20 @@ export default function Home() {
   }, [address, isConnected, provider, wAddress]);
 
   useEffect(() => {
-    getBalance();
+    try {
+      getBalance();
+    } catch (err) {
+      console.log(err);
+    }
   }, [getBalance]);
 
   useEffect(() => {
-    if (!isConnected && !wAddress) {
-      router.replace("/signin");
+    try {
+      if (!isConnected && !wAddress) {
+        router.replace("/signin");
+      }
+    } catch (err) {
+      console.log(err);
     }
   }, [isConnected, wAddress, router]);
 

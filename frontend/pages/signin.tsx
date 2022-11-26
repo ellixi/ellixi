@@ -1,11 +1,13 @@
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Meta from "../components/Meta";
 import Link from "next/link";
 import { useWebAuthn } from "../lib/webauthn/WebAuthnContext";
+import { useLoadingModal } from "../components/LoadingModal";
+import { isForOfStatement } from "typescript";
 
 export default function SignIn() {
   const { isConnected } = useAccount();
@@ -15,23 +17,35 @@ export default function SignIn() {
   const router = useRouter();
   const { disconnect } = useDisconnect();
   const { wAddress, signIn } = useWebAuthn();
+  const { LoadingModal, setShowLoadingModal } = useLoadingModal();
   console.log(wAddress);
   useEffect(() => {
-    if (isConnected) {
-      router.replace("/");
-    } else if (wAddress) {
-      router.replace("/");
+    try {
+      if (isConnected) {
+        router.replace("/");
+      } else if (wAddress) {
+        setShowLoadingModal(false);
+        router.replace("/");
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }, [isConnected, router, wAddress]);
+  }, [isConnected, router, wAddress, setShowLoadingModal]);
 
-  const bidLogin = async () => {
-    await signIn();
-    router.replace("/");
+  const bioLogin = async () => {
+    try {
+      setShowLoadingModal(true);
+      await signIn();
+      router.replace("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div>
       <Meta />
+      <LoadingModal />
       <div className="w-full min-h-screen bg-[#111] text-white">
         <div className="flex w-full mx-auto max-w-7xl">
           <div className="flex flex-col items-center w-full mt-40">
@@ -45,7 +59,7 @@ export default function SignIn() {
               </button>
               <button
                 className="bg-[#222] p-4 flex w-full rounded-md"
-                onClick={bidLogin}
+                onClick={bioLogin}
               >
                 Biometric
               </button>

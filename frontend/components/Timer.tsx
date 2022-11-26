@@ -29,18 +29,18 @@ const Timer = ({ time, type }: any) => {
     return () => {
       clearInterval(interval.current);
     };
-  }, [setTime]);
+  }, [setTime, time]);
 
   useEffect(() => {
-    if (initialTime.current <= 0) {
+    if (initialTime.current <= 0 || time == 0) {
       clearInterval(interval.current);
       //@ts-ignore
       setTime(0);
     }
-  }, [sec, setTime]);
+  }, [sec, setTime, time]);
 
   if (time == 0) {
-    return <></>;
+    return <DefaultWrap>00:00:00</DefaultWrap>;
   }
   if (type == "game") {
     return (
@@ -85,4 +85,8 @@ const MypageWrap = styled.div`
   .icon {
     margin: 10px;
   }
+`;
+
+const DefaultWrap = styled.div`
+  margin: 10px;
 `;

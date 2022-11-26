@@ -58,7 +58,7 @@ export default function Session() {
                   <Toggle />
                 </div>
               </div>
-              {time && m.name === "Dino" && <Timer type="mypage" time={time} />}
+              {m.name === "Dino" && <Timer type="mypage" time={time} />}
               <div className="p-4 bg-[#111]">
                 <div className="text-[#666]">
                   You have authorized the app to make the following actions on

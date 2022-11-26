@@ -24,7 +24,7 @@ export default function Modal({
 }) {
   const router = useRouter();
   const { key } = router.query;
-  const [ shouldShowModal, setShouldShowModal ] = useState(showModal);
+  const [shouldShowModal, setShouldShowModal] = useState(showModal);
   const mobileModalRef = useRef(null);
   const desktopModalRef = useRef(null);
 
@@ -38,7 +38,7 @@ export default function Modal({
         setShowModal(false);
       }
     },
-    [key, router, setShowModal],
+    [key, router, setShowModal]
   );
 
   const onKeyDown = useCallback((e: KeyboardEvent) => {
