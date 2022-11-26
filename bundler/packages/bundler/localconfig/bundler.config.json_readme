@@ -1,0 +1,10 @@
+{
+  "gasFactor": "1",
+  "port": "3000",
+  "network": "goerli",                                          // testnet 
+  "entryPoint": "0x96b59F8a12d891E7fD8b7fcBa6596a813A0E0Ac4",   // made by using [eth-infinitism/account-abstraction] project
+  "beneficiary": "0x3fb90cF43AE1eD8674BBae7B8E867E9CB0aD9217",  // test wallet 
+  "minBalance": "1",
+  "mnemonic": "./localconfig/mnemonic.txt",                     // test wallet mnemonic
+  "helper": "0x780EcF3a794E9eb2b8C9baA6d8C4Ff36EFba770C"
+}
