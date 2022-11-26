@@ -41,6 +41,12 @@ function ProfileModalHelper({
             </div>
           </Link>
 
+          <Link href={'/account/guardian'}>
+            <div className="w-full bg-[#222] p-3 rounded-xl">
+              Guardian
+            </div>
+          </Link>
+
           <div className="p-2 px-4 mx-auto text-sm text-center hover:text-white text-[#888] cursor-pointer rounded-xl" onClick={()=>disconnect()}>
             Logout
           </div>
