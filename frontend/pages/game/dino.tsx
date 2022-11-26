@@ -5,6 +5,8 @@ import Score from "../../components/Score";
 import Timer from "../../components/Timer";
 import { TimerContext } from "../_app";
 import { useInputModal } from "../../components/InputModal";
+import { useSignMessage } from 'wagmi'
+
 
 function Dino() {
   const { time, setTime } = useContext(TimerContext);
