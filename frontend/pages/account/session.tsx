@@ -44,7 +44,7 @@ export default function Session() {
   return (
     <Layout>
       <div className="flex flex-col items-center w-full mt-16">
-        <div className="text-2xl">Sessions</div>
+        <div className="text-2xl font-bold">Sessions</div>
         <div className="max-w-md mt-2 text-sm text-center text-[#888]">
           Which paymaster will pay for my gas fee?
         </div>

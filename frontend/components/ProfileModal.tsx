@@ -36,15 +36,21 @@ function ProfileModalHelper({
         </div>
         <div className="flex flex-col px-6 pb-8 mt-4 space-y-4 text-lg text-left">
           <Link href={"/account/paymaster"}>
-            <div className="w-full bg-[#222] p-3 rounded-xl">Paymaster</div>
+            <div className="w-full bg-[#222] p-3 rounded-xl hover:bg-indigo-600">
+              Paymaster
+            </div>
           </Link>
 
           <Link href={"/account/session"}>
-            <div className="w-full bg-[#222] p-3 rounded-xl">Session</div>
+            <div className="w-full bg-[#222] p-3 rounded-xl hover:bg-indigo-600">
+              Session
+            </div>
           </Link>
 
           <Link href={"/account/guardian"}>
-            <div className="w-full bg-[#222] p-3 rounded-xl">Guardian</div>
+            <div className="w-full bg-[#222] p-3 rounded-xl hover:bg-indigo-600">
+              Guardian
+            </div>
           </Link>
 
           <div

@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@account-abstraction/contracts@github:cupcakes-3/aa-contracts":
+"@account-abstraction/contracts@cupcakes-3/aa-contracts":
   version "0.2.0"
   resolved "https://codeload.github.com/cupcakes-3/aa-contracts/tar.gz/3ebbdc0e82bd3d344e411de7cb31192734cdbc7a"
 
