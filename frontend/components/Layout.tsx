@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import Meta from "./Meta";
 import { useAccount } from "wagmi";
 import Header from "./Header";
-import styled from "styled-components";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -14,7 +13,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Meta />
       <div className="w-full min-h-screen bg-[#111] text-white">
         <Header />
-        <div className="flex w-full mx-auto max-w-7xl">{children}</div>
+        <div className="flex w-full mx-auto max-w-8xl">{children}</div>
       </div>
     </div>
   );

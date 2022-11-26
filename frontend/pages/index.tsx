@@ -2,25 +2,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import styled from "styled-components";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import Layout from "../components/Layout";
+import { useWebAuthn } from "../lib/webauthn/WebAuthnContext";
 import { truncateEthAddress } from "../utils";
 
 export default function Home() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const router = useRouter();
+  const { wAddress } = useWebAuthn();
 
   useEffect(() => {
-    if (!isConnected) {
+    if (!isConnected && !wAddress) {
       router.replace("/signin");
     }
-  }, [isConnected]);
+  }, [isConnected, wAddress, router]);
 
   return (
     <Layout>
-      <div className="flex flex-col items-center w-full mt-16">
+      <Wrap className="flex flex-col items-center w-full pt-16">
         {/* <div className='text-2xl'>
           Available Games
         </div> */}
@@ -35,9 +38,7 @@ export default function Home() {
                 <div className="relative w-8 h-8 mr-3 overflow-hidden rounded-full">
                   <Image src={"/static/assets/profile.png"} alt="logo" fill />
                 </div>
-                {truncateEthAddress(
-                  "0x2198378B73dD7D7BC08d1B9837d374d895186207"
-                )}
+                {truncateEthAddress(String(isConnected ? address : wAddress))}
                 <span className="flex p-1 px-2 ml-4 text-xs bg-green-800 rounded-xl">
                   Deployed
                 </span>
@@ -90,7 +91,9 @@ export default function Home() {
 
 
         </div> */}
-      </div>
+      </Wrap>
     </Layout>
   );
 }
+
+const Wrap = styled.div``;
