@@ -15,12 +15,14 @@ export default function SignIn() {
   const router = useRouter();
   const { disconnect } = useDisconnect();
   const { wAddress, signIn } = useWebAuthn();
-
+  console.log(wAddress);
   useEffect(() => {
     if (isConnected) {
       router.replace("/");
+    } else if (wAddress) {
+      router.replace("/");
     }
-  }, [isConnected, router]);
+  }, [isConnected, router, wAddress]);
 
   const bidLogin = async () => {
     await signIn();
