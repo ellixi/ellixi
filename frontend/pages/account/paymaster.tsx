@@ -39,7 +39,7 @@ export default function Paymster() {
   return (
     <Layout>
       <div className="flex flex-col items-center w-full mt-16">
-        <div className="text-2xl">Paymasters</div>
+        <div className="text-2xl font-bold">Paymasters</div>
         <div className="max-w-md mt-2 text-sm text-center text-[#888]">
           Which paymaster will pay for my gas fee?
         </div>
@@ -48,7 +48,7 @@ export default function Paymster() {
             <div
               className={`p-4 mt-4 ${
                 selectedPaymaster === idx
-                  ? "bg-blue-900"
+                  ? "bg-indigo-900"
                   : "bg-[#222] hover:bg-[#333] "
               } rounded-lg cursor-pointer`}
               key={idx}

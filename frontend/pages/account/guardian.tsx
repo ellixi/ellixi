@@ -45,7 +45,7 @@ export default function Paymster() {
     <Layout>
       <GuaudianModal />
       <div className="flex flex-col items-center w-full mt-16">
-        <div className="text-2xl">Guardians</div>
+        <div className="text-2xl font-bold">Guardians</div>
         <div className="max-w-md mt-2 text-sm text-center text-[#888]">
           Register guardians
         </div>

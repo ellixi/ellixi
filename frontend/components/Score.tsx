@@ -23,7 +23,7 @@ const Wrap = styled.div`
   position: fixed;
   background-color: black;
   opacity: 0.5;
-  top: 10px;
+  top: 25px;
 
   color: white;
   width: 200px;

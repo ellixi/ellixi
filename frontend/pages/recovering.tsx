@@ -29,7 +29,7 @@ export default function Recover() {
         </Back>
         <div className="flex w-full mx-auto max-w-7xl">
           <div className="flex flex-col items-center w-full mt-40">
-            <div className="text-2xl">Recovering your wallet</div>
+            <div className="text-2xl font-bold">Recovering your wallet</div>
 
             <div className="max-w-md mt-2 text-sm text-center text-[#888]">
               Your guradians are notified of the account recovery request.{" "}
