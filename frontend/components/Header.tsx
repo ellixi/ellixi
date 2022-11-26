@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
 import { useProfileModal } from "./ProfileModal";
-import { Avatar } from 'degen'
 import { useEffect, useState } from "react";
 import { truncateEthAddress } from "../utils";
 

@@ -10,23 +10,23 @@ import Modal from "./Modal";
 import { useDisconnect } from 'wagmi';
 
 
-function ProfileModalHelper({
-  showProfileModal,
-  setShowProfileModal,
+function SessionModalHelper({
+  showSessionModal,
+  setShowSessionModal,
 }: {
-  showProfileModal: boolean;
-  setShowProfileModal: Dispatch<SetStateAction<boolean>>;
+  showSessionModal: boolean;
+  setShowSessionModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const { disconnect } = useDisconnect()
 
   return (
     <Modal
-      showModal={showProfileModal}
-      setShowModal={setShowProfileModal}
+      showModal={showSessionModal}
+      setShowModal={setShowSessionModal}
     >
       <div className="inline-block w-full overflow-hidden text-white align-middle transition-all transform bg-black shadow-xl sm:max-w-md sm:rounded-2xl">
         <div className="flex flex-col items-center justify-center px-4 py-4 pt-8 sm:px-16">
-          <h3 className="text-lg font-medium">Profile</h3>
+          <h3 className="text-lg font-medium">Session</h3>
         </div>
         <div  className="flex flex-col px-6 pb-8 mt-4 space-y-4 text-lg text-left">
           <Link href={'/account/paymaster'}>
@@ -50,20 +50,20 @@ function ProfileModalHelper({
   );
 }
 
-export function useProfileModal() {
-  const [showProfileModal, setShowProfileModal] = useState(false);
+export function useSessionModal() {
+  const [showSessionModal, setShowSessionModal] = useState(false);
 
-  const ProfileModal = useCallback(() => {
+  const SessionModal = useCallback(() => {
     return (
-      <ProfileModalHelper
-        showProfileModal={showProfileModal}
-        setShowProfileModal={setShowProfileModal}
+      <SessionModalHelper
+        showSessionModal={showSessionModal}
+        setShowSessionModal={setShowSessionModal}
       />
     );
-  }, [showProfileModal, setShowProfileModal]);
+  }, [showSessionModal, setShowSessionModal]);
 
   return useMemo(
-    () => ({ setShowProfileModal, ProfileModal }),
-    [setShowProfileModal, ProfileModal],
+    () => ({ setShowSessionModal, SessionModal }),
+    [setShowSessionModal, SessionModal],
   );
 }
