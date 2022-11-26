@@ -36,7 +36,7 @@ export default function Home() {
   );
   const [scwAddress, setScwAddress] = useState<string>("");
   const [scwProvider, setSCWProvider] = useState<SCWProvider | null>(null);
-
+  console.log(scwAddress);
   useEffect(() => {
     console.log(isConnected, signer);
     const getSCWProvider = async () => {
@@ -122,10 +122,10 @@ export default function Home() {
       <Wrap className="flex flex-col items-center w-full pt-16">
         {render && (
           <div className="w-full max-w-lg ">
-            <Link href={scwAddress}>
-              <div className="p-4 mt-4 bg-[#222] rounded-lg">
-                <div className="font-mono text-sm">In-App User Account</div>
-                <div className="flex flex-row items-center justify-between mt-4">
+            <Link href={`https://goerli.etherscan.io/address/${scwAddress}`}>
+              <div className="p-6 mt-4 bg-[#222] rounded-lg">
+                <div className="font-bold text-m ">In-App User Account</div>
+                <div className="flex flex-row items-center justify-between mt-6">
                   <div className="flex flex-row items-center">
                     <div className="relative w-8 h-8 mr-3 overflow-hidden rounded-full">
                       <Image

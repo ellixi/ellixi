@@ -9,7 +9,7 @@ import { useWebAuthn } from "../lib/webauthn/WebAuthnContext";
 import Timer from "./Timer";
 import { FaCopy } from "@react-icons/all-files/fa/FaCopy";
 import styled from "styled-components";
-
+import { AiFillCopy } from "@react-icons/all-files/ai/AiFillCopy";
 export interface HeaderProps {
   account?: string;
   project?: string;
@@ -45,18 +45,32 @@ const Header = ({ account, project }: HeaderProps) => {
             />
           </Link>
         </div>
-        <div
-          className="flex items-center p-5 pr-3 font-mono text-lg bg-[#111] rounded-full cursor-pointer"
-          onClick={() => {
-            setShowProfileModal(true);
-          }}
-        >
-          <div className="relative w-8 h-8 mr-3 overflow-hidden rounded-full">
+        <Profile className="flex items-center p-3 pr-3 font-mono text-lg bg-[#111] rounded-full cursor-pointer">
+          <div
+            className="relative w-8 h-8 mr-3 overflow-hidden rounded-full"
+            onClick={() => {
+              setShowProfileModal(true);
+            }}
+          >
             <Image src={"/static/assets/profile.png"} alt="logo" fill />
           </div>
           {/* {truncateEthAddress(accountAddress)} */}
-          0xb2cB•••3395
-        </div>
+          <div
+            onClick={() => {
+              setShowProfileModal(true);
+            }}
+          >
+            0xb2cB•••3395
+          </div>
+          <AiFillCopy
+            className="icon"
+            onClick={() =>
+              navigator.clipboard.writeText(
+                "0xb2cB02de0a16D2901bF3fFe72a0CFc14A21E3395"
+              )
+            }
+          ></AiFillCopy>
+        </Profile>
       </div>
     </div>
   );
@@ -64,11 +78,11 @@ const Header = ({ account, project }: HeaderProps) => {
 export default Header;
 
 const Profile = styled.div`
-  width: 260px;
+  width: 250px;
   .icon {
     margin-left: 15px;
     padding-right: 5px;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 `;
