@@ -1,35 +1,30 @@
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import Layout from '../../components/Layout'
- 
-export default function Dino() {
-  const { address, isConnected } = useAccount()
-  const { disconnect } = useDisconnect()
-  const router = useRouter()
+import React, { useEffect, useState } from "react";
+import Iframe from "react-iframe";
+import Layout from "../../components/Layout";
+import Score from "../../components/Score";
 
-  useEffect(()=>{
-    if (!isConnected) {
-      router.replace("/signin")
-    }
-  }, [isConnected])
- 
+function Dino() {
+  const [count, setCount] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      setSeconds(seconds + 1);
+    }, 1000);
+    return () => clearInterval(countdown);
+  }, [seconds]);
   return (
     <Layout>
-      <>
-      <div className='flex flex-col items-center w-full mt-40'>
-        <div className='text-2xl'>
-          Dino
-        </div>
-        {/* <div className='flex flex-col w-full max-w-sm gap-4 mt-12 text-lg'>
-        Connected to {address}
-      <button onClick={() => disconnect()}>Disconnect</button>
-
-
-        </div> */}
-      </div>
-      </>
+      <Score />
+      <Iframe
+        id="dino"
+        allowFullScreen={true}
+        width="1500"
+        height="800"
+        url="https://offline-dino-game.firebaseapp.com/"
+      />
     </Layout>
-  )
+  );
 }
+
+export default Dino;
