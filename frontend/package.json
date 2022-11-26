@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cupcakes-sdk/scw": "^0.2.6",
     "@radix-ui/react-popover": "^1.0.2",
     "@react-icons/all-files": "^4.1.0",
     "@types/ethereumjs-util": "^6.1.0",

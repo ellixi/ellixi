@@ -49,7 +49,8 @@ const Header = ({ account, project }: HeaderProps) => {
           <div className="relative w-8 h-8 mr-3 overflow-hidden rounded-full">
             <Image src={"/static/assets/profile.png"} alt="logo" fill />
           </div>
-          {truncateEthAddress(accountAddress)}
+          {/* {truncateEthAddress(accountAddress)} */}
+          0xb2cB•••3395
         </div>
       </div>
     </div>
