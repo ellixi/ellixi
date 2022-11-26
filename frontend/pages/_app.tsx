@@ -9,7 +9,7 @@ import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-import { WebAuthnProvider } from "../src/webauthn/WebAuthnContext";
+import { WebAuthnProvider } from "../src/ellixi/webauthn/WebAuthnContext";
 import dynamic from "next/dynamic";
 
 const { chains, provider, webSocketProvider } = configureChains(
@@ -49,7 +49,9 @@ const client = createClient({
   provider,
   webSocketProvider,
 });
-const Layout = dynamic(() => import("../src/common/Layout"), { ssr: false });
+const Layout = dynamic(() => import("../src/ellixi/common/Layout"), {
+  ssr: false,
+});
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={client}>

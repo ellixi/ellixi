@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import GameCard from "../src/common/GameCard";
+import GameCard from "../src/ellixi/common/GameCard";
 
 function explore() {
   return (

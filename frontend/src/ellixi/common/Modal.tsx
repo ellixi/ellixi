@@ -1,22 +1,66 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
-import Loading from "../ellixi/components/Loading";
+import Loading from "../components/Loading";
+import TxComplete from "../components/TxComplete";
 
-function LoginModal() {
+interface ModalProps {
+  handleClose?: () => void;
+}
+
+interface StateProps {
+  state?: string;
+}
+
+function State({ state }: StateProps): JSX.Element {
+  if (state == "loading") {
+    return <Loading text="로딩중입니다..." />;
+  } else if (state == "complete") {
+    return <TxComplete />;
+  } else {
+    return <></>;
+  }
+}
+
+function Modal({ handleClose }: ModalProps) {
+  const [confirm, setConfirm] = useState("");
+  const [value, setValue] = useState();
+  const [state, setState] = useState("");
+
+  const submitTime = () => {
+    setConfirm("confirm");
+    setState("loading");
+  };
   return (
     <Wrap>
       <Back />
       <Box>
+        <Close>
+          <AiOutlineClose onClick={handleClose} className="close-button" />
+        </Close>
         <Container>
-          <Loading text="로그인중입니다..." />
+          {confirm ? (
+            <State state={state} />
+          ) : (
+            <Form>
+              <div className="text">몇분 동안 세션키를 유지하시겠습니까?</div>
+              <input
+                type="number"
+                onChange={(e: any) => setValue(e.target.value)}
+                value={value}
+              ></input>
+              <div className="button" onClick={submitTime}>
+                confirm
+              </div>
+            </Form>
+          )}
         </Container>
       </Box>
     </Wrap>
   );
 }
 
-export default LoginModal;
+export default Modal;
 
 const Wrap = styled.div`
   height: 100vh;

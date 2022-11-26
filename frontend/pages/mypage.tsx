@@ -2,11 +2,14 @@ import dynamic from "next/dynamic";
 import React from "react";
 import styled from "styled-components";
 import { useAccount, useBalance } from "wagmi";
-import { useWebAuthn } from "../src/webauthn/WebAuthnContext";
+import { useWebAuthn } from "../src/ellixi/webauthn/WebAuthnContext";
 
-const MypageTemplate = dynamic(() => import("../src/common/MypageTemplate"), {
-  ssr: false,
-});
+const MypageTemplate = dynamic(
+  () => import("../src/ellixi/common/MypageTemplate"),
+  {
+    ssr: false,
+  }
+);
 function Mypage() {
   const { address, isConnected } = useAccount();
   // const { data, isError, isLoading } = useBalance({

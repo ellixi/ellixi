@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import GameCard from "../src/common/GameCard";
+import GameCard from "../src/ellixi/common/GameCard";
 
 export default function Home() {
   const router = useRouter();
