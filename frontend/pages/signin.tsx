@@ -46,10 +46,16 @@ export default function SignIn() {
     <div>
       <Meta />
       <LoadingModal />
-      <div className="w-full min-h-screen bg-[#111] text-white">
+      <div
+        className="w-full min-h-screen  text-white"
+        style={{
+          background:
+            "linear-gradient(180deg, #0d053d 0%, rgba(13, 5, 61, 0) 51.76%)",
+        }}
+      >
         <div className="flex w-full mx-auto max-w-7xl">
           <div className="flex flex-col items-center w-full mt-40">
-            <div className="text-2xl">Let&apos;s Plug In!</div>
+            <div className="text-2xl font-bold">Let&apos;s Plug In!</div>
             <div className="flex flex-col w-full max-w-sm gap-4 mt-12 text-lg">
               <button
                 className="bg-[#222] p-4 flex w-full rounded-md"

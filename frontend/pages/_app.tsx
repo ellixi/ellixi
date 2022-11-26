@@ -8,6 +8,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import Timer from "../components/Timer";
+import styled from "styled-components";
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.goerli],
   [

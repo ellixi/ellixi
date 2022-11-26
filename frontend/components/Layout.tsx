@@ -12,7 +12,15 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Meta />
       <div className="w-full min-h-screen bg-[#111] text-white">
         <Header />
-        <div className="flex w-full mx-auto max-w-8xl">{children}</div>
+        <div
+          className="flex w-full mx-auto max-w-8xl"
+          style={{
+            background:
+              "linear-gradient(180deg, #0d053d 0%, rgba(13, 5, 61, 0) 51.76%)",
+          }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
