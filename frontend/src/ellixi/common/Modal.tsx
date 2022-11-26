@@ -1,140 +1,117 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
-import Loading from "../components/Loading";
-import TxComplete from "../components/TxComplete";
+import { useRouter } from "next/router";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 
-interface ModalProps {
-  handleClose?: () => void;
-}
+export default function Modal({
+  children,
+  showModal,
+  setShowModal,
+  bgColor = "bg-black",
+  closeWithX,
+}: {
+  children: React.ReactNode;
+  showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+  bgColor?: string;
+  closeWithX?: boolean;
+}) {
+  const router = useRouter();
+  const { key } = router.query;
+  const [shouldShowModal, setShouldShowModal] = useState(showModal);
+  const mobileModalRef = useRef(null);
+  const desktopModalRef = useRef(null);
 
-interface StateProps {
-  state?: string;
-}
+  const closeModal = useCallback(
+    (closeWithX?: boolean) => {
+      if (closeWithX) {
+        return;
+      } else if (key) {
+        router.push("/");
+      } else {
+        setShowModal(false);
+      }
+    },
+    [key, router, setShowModal]
+  );
 
-function State({ state }: StateProps): JSX.Element {
-  if (state == "loading") {
-    return <Loading text="로딩중입니다..." />;
-  } else if (state == "complete") {
-    return <TxComplete />;
-  } else {
-    return <></>;
-  }
-}
+  const onKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape" && !closeWithX) {
+      setShowModal(false);
+    }
+  }, []);
 
-function Modal({ handleClose }: ModalProps) {
-  const [confirm, setConfirm] = useState("");
-  const [value, setValue] = useState();
-  const [state, setState] = useState("");
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onKeyDown]);
 
-  const submitTime = () => {
-    setConfirm("confirm");
-    setState("loading");
-  };
+  const controls = useAnimation();
+  const transitionProps = { type: "spring", stiffness: 300, damping: 10 };
+  useEffect(() => {
+    controls.start({
+      y: 0,
+      transition: transitionProps,
+    });
+  }, []);
+
   return (
-    <Wrap>
-      <Back />
-      <Box>
-        <Close>
-          <AiOutlineClose onClick={handleClose} className="close-button" />
-        </Close>
-        <Container>
-          {confirm ? (
-            <State state={state} />
-          ) : (
-            <Form>
-              <div className="text">몇분 동안 세션키를 유지하시겠습니까?</div>
-              <input
-                type="number"
-                onChange={(e: any) => setValue(e.target.value)}
-                value={value}
-              ></input>
-              <div className="button" onClick={submitTime}>
-                confirm
-              </div>
-            </Form>
-          )}
-        </Container>
-      </Box>
-    </Wrap>
+    <AnimatePresence>
+      {shouldShowModal && (
+        <div className="absolute">
+          <motion.div
+            ref={mobileModalRef}
+            key="mobile-modal"
+            className="fixed inset-x-0 bottom-0 z-40 w-screen group sm:hidden cursor-grab active:cursor-grabbing"
+            initial={{ y: "100%" }}
+            animate={controls}
+            exit={{ y: "100%" }}
+            transition={transitionProps}
+            drag="y"
+            dragDirectionLock
+            // onDragEnd={handleDragEnd}
+            dragElastic={{ top: 0, bottom: 1 }}
+            dragConstraints={{ top: 0, bottom: 0 }}
+          >
+            <div
+              className={`h-7 ${bgColor} w-full flex items-center justify-center rounded-t-4xl border-t border-gray-200 -mb-1`}
+            >
+              <div className="w-6 h-1 -mr-1 transition-all bg-gray-800 rounded-full group-active:rotate-12" />
+              <div className="w-6 h-1 transition-all bg-gray-800 rounded-full group-active:-rotate-12" />
+            </div>
+            {children}
+          </motion.div>
+          <motion.div
+            ref={desktopModalRef}
+            key="desktop-modal"
+            className="fixed inset-0 z-40 items-center justify-center hidden min-h-screen sm:flex"
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0.95 }}
+            onMouseDown={(e) => {
+              if (desktopModalRef.current === e.target) {
+                closeModal(closeWithX);
+              }
+            }}
+          >
+            {children}
+          </motion.div>
+          <motion.div
+            key="backdrop"
+            className="fixed inset-0 z-30 bg-gray-900 bg-opacity-10 backdrop-blur"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => closeModal(closeWithX)}
+          />
+        </div>
+      )}
+    </AnimatePresence>
   );
 }
-
-export default Modal;
-
-const Wrap = styled.div`
-  height: 100vh;
-  position: fixed;
-  z-index: 25;
-  left: 0;
-  right: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  line-height: normal;
-`;
-
-const Back = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 0.3;
-`;
-
-const Box = styled.div`
-  position: absolute;
-  background-color: black;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 384px;
-  background-color: black;
-  border-radius: 20px;
-  border: 1px solid #888888;
-  padding: 15px;
-`;
-
-const Close = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  .close-button {
-    width: 24px;
-    height: 24px;
-    padding: 5px;
-  }
-`;
-
-const Container = styled.div`
-  padding: 10px 0px;
-  text-align: center;
-`;
-
-const Form = styled.div`
-  .text {
-    margin: 20px 10px 40px 10px;
-    font-size: 20px;
-  }
-  input {
-    border: none;
-    width: 299px;
-    height: 40px;
-    left: 792px;
-    top: 604px;
-    padding: 10px;
-
-    background: #191919;
-    border-radius: 10px;
-    margin-bottom: 30px;
-  }
-  .button {
-    width: 300px;
-    height: 50px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #7a7a7a;
-    border-radius: 20px;
-  }
-`;
