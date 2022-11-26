@@ -45,7 +45,12 @@ const Header = ({ account, project }: HeaderProps) => {
             />
           </Link>
         </div>
-        <div className="flex items-center p-5 pr-3 font-mono text-lg bg-[#111] rounded-full cursor-pointer">
+        <div
+          className="flex items-center p-5 pr-3 font-mono text-lg bg-[#111] rounded-full cursor-pointer"
+          onClick={() => {
+            setShowProfileModal(true);
+          }}
+        >
           <div className="relative w-8 h-8 mr-3 overflow-hidden rounded-full">
             <Image src={"/static/assets/profile.png"} alt="logo" fill />
           </div>
