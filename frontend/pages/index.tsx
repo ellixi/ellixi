@@ -1,16 +1,33 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { useEffect, useState } from 'react'
+import { useAccount, useConnect, useDisconnect, useProvider, useSigner } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import Layout from '../components/Layout'
 import { truncateEthAddress } from '../utils'
+import { SCWProvider } from '@cupcakes-sdk/scw'
+
  
 export default function Home() {
   const { address, isConnected } = useAccount()
-  const { disconnect } = useDisconnect()
   const router = useRouter()
+
+  const { data: signer } = useSigner()
+  const [scwProvider, setSCWProvider] = useState<SCWProvider | null>(null)
+  const provider = useProvider()
+
+  useEffect(() => {
+    const getSCWProvider = async () => {
+      if (isConnected && signer != null) {
+        const newScwProvider: SCWProvider = await SCWProvider.getSCWForOwner(provider, signer)
+        setSCWProvider(newScwProvider)
+        console.log(newScwProvider.getSigner())
+      }
+    }
+    getSCWProvider()
+  }, [isConnected, signer])
+
 
   useEffect(()=>{
     if (!isConnected) {
@@ -18,16 +35,12 @@ export default function Home() {
     }
   }, [isConnected])
  
+
+
   return (
     <Layout>
       <>
       <div className='flex flex-col items-center w-full mt-16'>
-        {/* <div className='text-2xl'>
-          Available Games
-        </div> */}
-        {/* <div className='p-4 mt-4 bg-pink-400'>
-          Profile
-        </div> */}
         <div className='w-full max-w-lg '>
           <div className='p-4 mt-4 bg-[#222] rounded-lg'>
             <div className='font-mono text-sm'>
@@ -44,9 +57,6 @@ export default function Home() {
                 </span>
               </div>
               <div className='flex flex-col h-full'>
-                {/* <div>
-                  Stats: 523
-                </div> */}
                 <div>
                   <span className='text-[#777]'>ETH Balance: </span> 0.04
                 </div>
@@ -75,12 +85,6 @@ export default function Home() {
             </div>
           </Link>
         </div>
-        {/* <div className='flex flex-col w-full max-w-sm gap-4 mt-12 text-lg'>
-        Connected to {address}
-      <button onClick={() => disconnect()}>Disconnect</button>
-
-
-        </div> */}
       </div>
       </>
     </Layout>

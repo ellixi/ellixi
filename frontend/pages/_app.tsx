@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { WagmiConfig, createClient } from 'wagmi'
+import { WagmiConfig, createClient } from 'wagmi';
 import { getDefaultProvider } from 'ethers'
  
 const client = createClient({

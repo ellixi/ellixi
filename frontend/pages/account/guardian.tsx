@@ -45,7 +45,7 @@ export default function Paymster() {
           Register guardians
         </div>
         <div className='w-full max-w-lg '>
-          {
+          {/* {
             paymasterOptions.map((m, idx)=>(
               <div className={`p-4 mt-4 ${selectedPaymaster === idx ? "bg-blue-900" : "bg-[#222] hover:bg-[#333] "} rounded-lg cursor-pointer`} key={idx} onClick={()=>{setSelectedPaymaster(idx)}}>
                 <div className='font-mono text-sm'>
@@ -69,7 +69,7 @@ export default function Paymster() {
                 </div>
               </div>  
             ))
-          }
+          } */}
         </div>
       </div>
     </Layout>
