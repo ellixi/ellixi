@@ -5,30 +5,28 @@ import { useEffect, useState } from 'react'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import Layout from '../../components/Layout'
-import Toggle from '../../components/Toggle'
 import { truncateEthAddress } from '../../utils'
  
 
 const paymasterOptions = [
   {
-    name: "App Name 1",
+    name: "Paymaster 1",
     address: "0x2198378B73dD7D7BC08d1B9837d374d895186207",
-    function: "UpdateScore",
     balance: 5.23,
     isAvailable: true
   },
   {
-    name: "App 2",
+    name: "Paymaster 2",
     address: "0x3198378B73dD7D7BC08d1B9837d374d895186207",
-    function: "UpdateScore2",
     balance: 5.23,
     isAvailalbe: false
   }
 ]
 
-export default function Session() {
+export default function Paymster() {
   const { address, isConnected } = useAccount()
   const { disconnect } = useDisconnect()
+  const [ selectedPaymaster, setSelectedPaymaster ] = useState(0)
   const router = useRouter()
 
   useEffect(()=>{
@@ -41,37 +39,31 @@ export default function Session() {
     <Layout>
       <div className='flex flex-col items-center w-full mt-16'>
         <div className='text-2xl'>
-          Sessions
+          Guardians
         </div>
         <div className='max-w-md mt-2 text-sm text-center text-[#888]'>
-          Which paymaster will pay for my gas fee?
+          Register guardians
         </div>
-        <div className='w-full max-w-xl mt-8'>
+        <div className='w-full max-w-lg '>
           {
             paymasterOptions.map((m, idx)=>(
-              <div className={`mt-4 bg-[#222] rounded-lg`} key={idx}>
-                <div className='font-mono text-sm bg-[#333] px-4 p-3 flex justify-between flex-row'>
-                  <div>
-                    {m.name}
-                  </div>
-                  <div>
-                    <Toggle />
-                  </div>
-
+              <div className={`p-4 mt-4 ${selectedPaymaster === idx ? "bg-blue-900" : "bg-[#222] hover:bg-[#333] "} rounded-lg cursor-pointer`} key={idx} onClick={()=>{setSelectedPaymaster(idx)}}>
+                <div className='font-mono text-sm'>
+                  {m.name}
+                  {selectedPaymaster === idx && <span className='ml-2 text-sm'>(selected)</span>}
                 </div>
-                <div className='p-4 bg-[#111]'>
-                  <div className='text-[#666]'>
-                    You have authorized the app to make the following actions on your behalf:
+    
+                <div className='flex flex-row items-center justify-between mt-4'>
+                  <div className='flex flex-row items-center'>
+                    { truncateEthAddress(m.address) }
+
+                    <span className={`flex p-1 px-2 ml-4 text-xs rounded-xl ${m.isAvailable ? "bg-green-800" : "bg-red-800"}`}>
+                      { m.isAvailable ? "Available" : "Unavailable" }
+                    </span>
                   </div>
-      
-                  <div className='flex flex-col items-start justify-between mt-4'>
-                    <div className='flex flex-row items-center'>
-                      <span className='text-[#777] mr-2'>Contract: </span>
-                      <span>{ truncateEthAddress(m.address) }</span>
-                    </div>
-                    <div className='flex flex-row items-center'>
-                      <span className='text-[#777] mr-2'>Function: </span>
-                      <span>{ m.function }</span>
+                  <div className='flex flex-col h-full'>
+                    <div>
+                      <span className='text-[#777]'>ETH Balance: </span> {m.balance}
                     </div>
                   </div>
                 </div>
