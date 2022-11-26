@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import Meta from "./Meta";
 import { useAccount } from "wagmi";
 import Header from "./Header";
-
 export default function Layout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { isConnected } = useAccount();
