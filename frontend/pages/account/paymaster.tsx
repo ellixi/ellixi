@@ -2,15 +2,15 @@ import dynamic from "next/dynamic";
 import React from "react";
 import styled from "styled-components";
 import { useAccount, useBalance } from "wagmi";
-import { useWebAuthn } from "../src/ellixi/webauthn/WebAuthnContext";
+import { useWebAuthn } from "../../src/ellixi/webauthn/WebAuthnContext";
 
-const MypageTemplate = dynamic(
-  () => import("../src/ellixi/common/MypageTemplate"),
+const PaymasterTemplate = dynamic(
+  () => import("../../src/ellixi/common/PaymasterTemplate"),
   {
     ssr: false,
   }
 );
-function Mypage() {
+function Paymaster() {
   const { address, isConnected } = useAccount();
   // const { data, isError, isLoading } = useBalance({
   //   address: address,
@@ -18,12 +18,12 @@ function Mypage() {
   // const { address } = useWebAuthn();
   return (
     <Wrap>
-      <MypageTemplate />
+      <PaymasterTemplate />
     </Wrap>
   );
 }
 
-export default Mypage;
+export default Paymaster;
 
 const Wrap = styled.div`
   display: flex;

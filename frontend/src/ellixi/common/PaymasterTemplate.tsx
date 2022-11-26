@@ -6,7 +6,7 @@ import { useWebAuthn } from "../webauthn/WebAuthnContext";
 import { MdAccountCircle } from "@react-icons/all-files/md/MdAccountCircle";
 import { MdAccountBalance } from "@react-icons/all-files/md/MdAccountBalance";
 
-function MypageTemplate() {
+function PaymasterTemplate() {
   const router = useRouter();
   const { address, signOut } = useWebAuthn();
   const provider = useProvider();
@@ -44,7 +44,7 @@ function MypageTemplate() {
   );
 }
 
-export default MypageTemplate;
+export default PaymasterTemplate;
 
 const Wrap = styled.div`
   height: 800px;

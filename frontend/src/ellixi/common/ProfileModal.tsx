@@ -26,19 +26,37 @@ function ProfileModalHelper({
         </div>
         <div className="flex flex-col px-6 pb-8 mt-4 space-y-4 text-lg text-left">
           <Link href={"/account/paymaster"}>
-            <div className="w-full bg-[#222] p-3 rounded-xl">Paymaster</div>
+            <div
+              className="w-full bg-[#222] p-3 rounded-xl"
+              onClick={() => setShowProfileModal(false)}
+            >
+              Paymaster
+            </div>
           </Link>
 
           <Link href={"/account/session"}>
-            <div className="w-full bg-[#222] p-3 rounded-xl">Session</div>
+            <div
+              className="w-full bg-[#222] p-3 rounded-xl"
+              onClick={() => setShowProfileModal(false)}
+            >
+              Session
+            </div>
+          </Link>
+          <Link href={"/accuont/guardian"}>
+            <div
+              className="w-full bg-[#222] p-3 rounded-xl"
+              onClick={() => setShowProfileModal(false)}
+            >
+              Guardian
+            </div>
           </Link>
 
-          <div
+          {/* <div
             className="p-2 px-4 mx-auto text-sm text-center hover:text-white text-[#888] cursor-pointer rounded-xl"
             onClick={() => disconnect()}
           >
             Logout
-          </div>
+          </div> */}
         </div>
       </div>
     </Modal>

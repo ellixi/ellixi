@@ -4,10 +4,14 @@ import styled from "styled-components";
 import { useWebAuthn } from "../webauthn/WebAuthnContext";
 import { BsFillPersonFill } from "@react-icons/all-files/bs/BsFillPersonFill";
 import LoginModal from "./LoginLoading";
+import { useProfileModal } from "./ProfileModal";
+import { useLoginModal } from "./LoginModal";
+
 function Layout() {
   const router = useRouter();
   const { address, signIn } = useWebAuthn();
-  const [loginState, setLoginState] = useState(false);
+  const { setShowProfileModal, ProfileModal } = useProfileModal();
+  const { setShowLoginModal, LoginModal } = useLoginModal();
 
   const goHome = () => {
     router.push("/");
@@ -18,21 +22,19 @@ function Layout() {
   };
 
   const goMypage = () => {
-    router.push("/mypage");
+    setShowProfileModal(true);
+    // router.push("/mypage");
   };
 
   const handleLogin = async () => {
-    setLoginState(true);
+    setShowLoginModal(true);
     await signIn();
   };
-  useEffect(() => {
-    if (loginState == true && address) {
-      setLoginState(false);
-    }
-  }, [address, loginState]);
+
   return (
     <Wrap>
-      {loginState && <LoginModal />}
+      <ProfileModal />
+      <LoginModal />
       <Logo onClick={goHome}>Ellixi</Logo>
       <Right>
         <ExploreButton onClick={goExplore}>Explore</ExploreButton>
