@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Iframe from "react-iframe";
 import Layout from "../../components/Layout";
 import Score from "../../components/Score";
+import Timer from "../../components/Timer";
+import { TimerContext } from "../_app";
+import { useInputModal } from "../../components/InputModal";
 
 function Dino() {
-  const [count, setCount] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const { time, setTime } = useContext(TimerContext);
+  const { setShowInputModal, InputModal } = useInputModal();
 
   useEffect(() => {
-    const countdown = setInterval(() => {
-      setSeconds(seconds + 1);
-    }, 1000);
-    return () => clearInterval(countdown);
-  }, [seconds]);
+    if (time === 0) {
+      setShowInputModal(true);
+    }
+  }, [time, setShowInputModal]);
+
   return (
     <Layout>
-      <Score />
+      {time && <Timer type="game" time={time} />}
+      <InputModal />
+      {time != 0 && <Score />}
       <Iframe
         id="dino"
         allowFullScreen={true}

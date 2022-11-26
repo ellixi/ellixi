@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
+import { TimerContext } from "../pages/_app";
+import { RiTimerLine } from "@react-icons/all-files/ri/RiTimerLine";
+const Timer = ({ time, type }: any) => {
+  const tempHour = Math.floor(Number(time) / 3600);
+  const tempMin = Math.floor(Number(time) / 60) % 60;
+  const tempSec = Number(time) % 60;
+  const { setTime } = useContext(TimerContext);
 
-interface Iprops {
-  hourValue: string;
-  minValue: string;
-}
-
-const Timer = ({ hourValue, minValue }: Iprops) => {
-  // 아무것도 입력하지 않으면 undefined가 들어오기 때문에 유효성 검사부터..
-  const tempHour = parseInt(hourValue);
-  const tempMin = parseInt(minValue);
-  const tempSec = 0;
-  // 타이머를 초단위로 변환한 initialTime과 setInterval을 저장할 interval ref
-  const initialTime = useRef<any>(tempHour * 60 * 60 + tempMin * 60 + tempSec);
+  const initialTime = useRef<any>(
+    Number(tempHour) * 60 * 60 + Number(tempMin) * 60 + tempSec
+  );
   const interval = useRef<any>(null);
 
   const [hour, setHour] = useState(tempHour);
@@ -25,27 +23,70 @@ const Timer = ({ hourValue, minValue }: Iprops) => {
       setSec(Math.floor(initialTime.current % 60));
       setMin(Math.floor(initialTime.current / 60) % 60);
       setHour(Math.floor(initialTime.current / 60 / 60));
+      //@ts-ignore
+      setTime(initialTime.current);
     }, 1000);
-    return () => clearInterval(interval.current);
-  }, []);
-
-  // 초가 변할 때만 실행되는 useEffect
-  // initialTime을 검사해서 0이 되면 interval을 멈춘다.
-  useEffect(() => {
-    if (initialTime.current <= 0) {
+    return () => {
       clearInterval(interval.current);
-    }
-  }, [sec]);
+    };
+  }, [setTime, time]);
 
-  return (
-    <Wrap>
-      {hour} : {min} : {sec}
-    </Wrap>
-  );
+  useEffect(() => {
+    if (initialTime.current <= 0 || time == 0) {
+      clearInterval(interval.current);
+      //@ts-ignore
+      setTime(0);
+    }
+  }, [sec, setTime, time]);
+
+  if (time == 0) {
+    return <DefaultWrap>00:00:00</DefaultWrap>;
+  }
+  if (type == "game") {
+    return (
+      <GameWrap>
+        <RiTimerLine className="icon" />
+        {hour} : {min} : {sec}
+      </GameWrap>
+    );
+  }
+  if ((type = "mypage")) {
+    return (
+      <MypageWrap>
+        <RiTimerLine className="icon" />
+        {hour} : {min} : {sec}
+      </MypageWrap>
+    );
+  }
+  return <></>;
 };
 
 export default Timer;
 
-const Wrap = styled.div`
+const GameWrap = styled.div`
+  position: absolute;
+  left: 50%;
+  width: 250px;
+  justify-content: center;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  transform: translateX(-50%);
+  .icon {
+    margin-right: 20px;
+  }
+`;
+
+const MypageWrap = styled.div`
   width: 300px;
+  display: flex;
+  align-items: center;
+  .icon {
+    margin: 10px;
+  }
+`;
+
+const DefaultWrap = styled.div`
+  margin: 10px;
 `;

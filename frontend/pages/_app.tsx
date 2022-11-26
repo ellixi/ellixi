@@ -1,16 +1,13 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { getDefaultProvider } from "ethers";
 import { WebAuthnProvider } from "../lib/webauthn/WebAuthnContext";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
-import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
-import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-
+import { createContext, Dispatch, SetStateAction, useState } from "react";
+import Timer from "../components/Timer";
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.goerli],
   [
@@ -23,37 +20,30 @@ const { chains, provider, webSocketProvider } = configureChains(
 
 const client = createClient({
   autoConnect: true,
-  connectors: [
-    new MetaMaskConnector({ chains }),
-    // new CoinbaseWalletConnector({
-    //   chains,
-    //   options: {
-    //     appName: "wagmi",
-    //   },
-    // }),
-    // new WalletConnectConnector({
-    //   chains,
-    //   options: {
-    //     qrcode: true,
-    //   },
-    // }),
-    // new InjectedConnector({
-    //   chains,
-    //   options: {
-    //     name: "Injected",
-    //     shimDisconnect: true,
-    //   },
-    // }),
-  ],
+  connectors: [new MetaMaskConnector({ chains })],
   provider,
   webSocketProvider,
 });
 
+interface ITimerContext {
+  time?: number;
+  setTime?: Dispatch<SetStateAction<number>>;
+}
+
+export const TimerContext = createContext<ITimerContext>({});
+
 export default function App({ Component, pageProps }: AppProps) {
+  const [time, setTime] = useState<number>(0);
+  const value: ITimerContext = {
+    time,
+    setTime,
+  };
   return (
     <WagmiConfig client={client}>
       <WebAuthnProvider>
-        <Component {...pageProps} />
+        <TimerContext.Provider value={value}>
+          <Component {...pageProps} />
+        </TimerContext.Provider>
       </WebAuthnProvider>
     </WagmiConfig>
   );

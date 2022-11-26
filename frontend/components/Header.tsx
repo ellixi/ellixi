@@ -6,7 +6,7 @@ import { useProfileModal } from "./ProfileModal";
 import { useEffect, useState } from "react";
 import { truncateEthAddress } from "../utils";
 import { useWebAuthn } from "../lib/webauthn/WebAuthnContext";
-
+import Timer from "./Timer";
 export interface HeaderProps {
   account?: string;
   project?: string;
