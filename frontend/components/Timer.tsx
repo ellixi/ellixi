@@ -68,11 +68,15 @@ const GameWrap = styled.div`
   left: 50%;
   width: 250px;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
   align-items: center;
   font-size: 24px;
   transform: translateX(-50%);
+  background-color: black;
+  opacity: 0.5;
+  border-radius: 10px;
+  padding: 5px 0px;
   .icon {
     margin-right: 20px;
   }

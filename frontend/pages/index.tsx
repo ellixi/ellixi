@@ -113,17 +113,28 @@ export default function Home() {
                 </div>
               </div>
             </Link>
+            <Link href="/game/tetris">
+              <div className="relative mt-8 overflow-hidden cursor-pointer group">
+                <div className="relative w-full h-40 overflow-hidden text-black border border-black rounded-lg group-hover:border-yellow-600">
+                  <Image
+                    src={"/static/assets/tetris.jpeg"}
+                    fill
+                    alt="game1"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="absolute bottom-0 left-0 p-3 bg-black rounded-bl-lg group-hover:bg-yellow-600 text-md text-mono opacity-80 rounded-tr-xl">
+                  Tetris
+                </div>
+              </div>
+            </Link>
           </div>
         )}
-        {/* <div className='flex flex-col w-full max-w-sm gap-4 mt-12 text-lg'>
-        Connected to {address}
-      <button onClick={() => disconnect()}>Disconnect</button>
-
-
-              </div> */}
       </Wrap>
     </Layout>
   );
 }
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  padding-bottom: 50px;
+`;

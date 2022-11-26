@@ -19,10 +19,9 @@ function InputModalHelper({
   setShowInputModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const { time, setTime } = useContext(TimerContext);
-  const [inputValue, setInputValue] = useState(0);
   const handleConfirm = async () => {
     // @ts-ignore
-    setTime(inputValue);
+    setTime(24 * 60 * 60);
     setShowInputModal(false);
   };
   useEffect(() => {
@@ -33,15 +32,11 @@ function InputModalHelper({
   return (
     <Modal showModal={showInputModal} setShowModal={setShowInputModal}>
       <Wrap className="inline-block w-full overflow-hidden text-white align-middle transition-all transform bg-black shadow-xl sm:max-w-md sm:rounded-2xl">
-        <div className="flex flex-col items-center justify-center px-4 py-4 pt-8 sm:px-16">
-          <h2 className="text-lg font-medium">Session Time</h2>
+        <div className="flex flex-col items-center justify-center px-8 py-10 pt-12 sm:px-16">
+          <h2 className="text-lg font-medium">Grant permission for one day</h2>
         </div>
+        <Time>24 hours</Time>
         <div className="flex flex-col px-6 pb-8 mt-4 space-y-4 text-lg text-left">
-          <input
-            type="number"
-            onChange={(e: any) => setInputValue(e.target.value)}
-            value={inputValue}
-          ></input>
           <Confirm
             className="p-2 px-4 mx-auto text-sm text-center hover:text-white text-[#888] cursor-pointer rounded-xl"
             onClick={handleConfirm}
@@ -88,4 +83,10 @@ const Wrap = styled.div`
 const Confirm = styled.div`
   border: 1px solid;
   margin: 10px 10px;
+`;
+
+const Time = styled.div`
+  text-align: center;
+  opacity: 0.5;
+  font-size: 24px;
 `;

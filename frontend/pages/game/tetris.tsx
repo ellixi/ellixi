@@ -5,8 +5,7 @@ import Layout from "../../components/Layout";
 import Score from "../../components/Score";
 import Timer from "../../components/Timer";
 import { TimerContext } from "../_app";
-
-function Flappybird() {
+function Tetris() {
   const { time, setTime } = useContext(TimerContext);
   const { setShowInputModal, InputModal } = useInputModal();
 
@@ -22,13 +21,14 @@ function Flappybird() {
       <InputModal />
       {time != 0 && <Score />}
       <Iframe
+        id="dino"
         allowFullScreen={true}
         width="1500"
         height="800"
-        url="https://flappybird.io/"
+        url="https://www.lumpty.com/amusements/Games/Tetris/tetris.html"
       />
     </Layout>
   );
 }
 
-export default Flappybird;
+export default Tetris;

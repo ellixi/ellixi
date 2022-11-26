@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 function Score() {
   const [seconds, setSeconds] = useState(0);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const countdown = setInterval(() => {
       setSeconds(seconds + 1);
+      if (seconds % 5 == 0) {
+        setScore(score + 12 + Math.floor(score / 12));
+      }
     }, 1000);
     return () => clearInterval(countdown);
-  }, [seconds]);
-  return <Wrap>Score:{seconds}</Wrap>;
+  }, [seconds, score]);
+
+  return <Wrap>Score : {score}</Wrap>;
 }
 
 export default Score;
