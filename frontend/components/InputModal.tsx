@@ -10,6 +10,9 @@ import {
 import Modal from "./Modal";
 import styled from "styled-components";
 import { TimerContext } from "../pages/_app";
+import { useSignMessage } from "wagmi";
+
+
 
 function InputModalHelper({
   showInputModal,
@@ -18,12 +21,23 @@ function InputModalHelper({
   showInputModal: boolean;
   setShowInputModal: Dispatch<SetStateAction<boolean>>;
 }) {
+  const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
+    message: 'Sign to generate a enw session',
+  })
+ 
   const { time, setTime } = useContext(TimerContext);
   const handleConfirm = async () => {
-    // @ts-ignore
-    setTime(24 * 60 * 60);
-    setShowInputModal(false);
+    signMessage()
   };
+
+  useEffect(()=>{
+    if (isSuccess) {
+        // @ts-ignore
+      setTime(24 * 60 * 60);
+      setShowInputModal(false);
+    }
+  },[isSuccess])
+
   useEffect(() => {
     if (time == 0) {
       setShowInputModal(true);
@@ -36,6 +50,10 @@ function InputModalHelper({
           <h2 className="text-lg font-medium">Grant permission for one day</h2>
         </div>
         <Time>24 hours</Time>
+
+      <button disabled={isLoading} onClick={() => signMessage()}>
+        Sign message
+      </button>
         <div className="flex flex-col px-6 pb-8 mt-4 space-y-4 text-lg text-left">
           <Confirm
             className="p-2 px-4 mx-auto text-sm text-center hover:text-white text-[#888] cursor-pointer rounded-xl"
